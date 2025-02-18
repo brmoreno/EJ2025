@@ -1,0 +1,212 @@
+class Vaca{
+  float x;
+  float y;
+  float r;
+  float s;
+  color cara;
+  color mancha;
+  color rayo;
+  float dr;
+  boolean flota;
+  
+  Vaca(float x_, float y_, color cara_, color mancha_, color rayo_){
+    x = x_;
+    y = y_;
+    r = 0;
+    s = 1;
+    cara = cara_;
+    mancha = mancha_;
+    rayo = rayo_;
+    dr = random(-0.1,0.1);
+    flota = false;
+  }
+  
+  void display(){
+    if(flota){
+    rotar();
+    }
+    Vaca(x,y,r,s);
+  }
+  
+  void rotar(){
+    r+=dr;
+  }
+  
+  void Vaca(float x_, float y_, float r_,float s_){
+  pushMatrix();
+  translate(x_,y_);
+  fill(rayo,80);
+  triangle(0,-180,-130,100,130,100);
+  translate(0,sin(r)*50);
+  pushMatrix();
+  rotate(r_);
+  scale(s_+sin(r)*.4);
+  
+  translate(-100,-100);
+  
+  fill(cara);
+  ellipse(100,100,100,80);
+  fill(mancha);
+  ellipse(130,115,33,30);
+  fill(255,100,100);
+  ellipse(100,120,80,40);
+  fill(0); 
+  circle(120,120,7);
+  circle(80,120,7);
+  fill(0);
+  circle(80,90,10);
+  circle(120,90,10);
+  fill(cara);
+  ellipse(45,80,30,20);
+  ellipse(155,80,30,20);
+  fill(mancha);
+  ellipse(45,78,20,15);
+  ellipse(90,70,35,20);
+  fill(242,209,157);
+  triangle(58,79,65,35,85,68);
+  triangle(116,68,131,37,140,83);
+  
+  popMatrix();
+  popMatrix();
+}
+
+  
+}
+
+class Mapache{
+ float x;
+ float y;
+ float v;
+ boolean der;
+ 
+ Mapache(){
+   x = width/2;
+   y = height/2;
+   v = 3;
+   der = true;
+ }
+ 
+ void display(){
+   mapache(x,y,0,1);
+ }
+ 
+ void mover(){
+   if(keyPressed){
+     switch(key){
+       case 'a':
+         x-= v;
+         der = false;
+       break;
+       case 'd':
+         x+= v;
+         der = true;
+       break;
+       case 'w':
+         y-= v;
+       break;
+       case 's':
+         y+= v;
+       break;
+     }
+   }
+ }
+ 
+ void mapache(float x_, float y_,float r_, float s_) { 
+  pushMatrix();
+  translate(x_,y_);
+  rotate(r_);
+  if(der){
+    scale(1);
+  }
+  else{
+  scale(-1,1);
+  }
+  fill(75);
+  ellipse( - 40,  15, 50, 15);
+
+  //Patas
+  fill(100);
+  rect(-6, 18, 5, 10);
+  rect(- 15,  21, 5, 10);
+  fill(50);
+  rect(- 24,  18, 5, 10);
+  rect(- 33,  21, 5, 10);
+
+  fill(0);
+  rect( - 6,  26, 6, 2);
+  rect( - 15,  28, 6, 2);
+  rect( - 24, 26, 6, 2);
+  rect( - 33,  28, 6, 2);
+
+  //Orejas
+  fill(75);
+  ellipse(- 12,  - 10, 20, 25);
+  fill(0);
+  ellipse( - 12,  - 10, 12, 20);
+
+  fill(75);
+  ellipse( + 10,  - 10, 20, 25);
+  fill(0);
+  ellipse( + 10,  - 10, 12, 20);
+
+  //Cuerpo
+  fill(70);
+  ellipse( - 18,  5, 45, 30);
+  fill(140);
+  ellipse( - 14,  15, 40, 12);
+
+  //Cara
+  fill(100);
+  ellipse(0, 0, 50, 35);
+
+  //Ojos
+  fill(50);
+  ellipse( - 9, 0, 20, 18);
+  ellipse( 11, 0, 20, 18);
+
+  fill(255);
+  ellipse(- 9, 0, 12, 12);
+  ellipse( 11, 0, 12, 12);
+
+  fill(0);
+  ellipse(- 9, 0, 5, 5);
+  ellipse(11, 0, 5, 5);
+
+  //Nariz
+  fill(160);
+  ellipse(0, 10, 15, 12);
+  fill(0);
+  ellipse(0, 10, 6, 5);
+  popMatrix();
+}
+
+ 
+  
+}
+
+
+Vaca max;
+Vaca luis;
+Mapache elMapache;
+
+void setup(){
+  size(800,800);
+  max = new Vaca(200,400,color(255,0,0),color(255,255,0),color(#821689));
+  luis = new Vaca(500,400,color(0,255,0),color(#821689),color(255,200,0));
+  elMapache = new Mapache();
+}
+
+void draw(){
+  noStroke();
+  background(255);
+  max.display();
+  luis.display();
+  elMapache.display();
+  elMapache.mover();
+}
+
+void keyPressed(){
+  if(key == 'z'){
+    max.flota = ! max.flota ;
+  }
+}
